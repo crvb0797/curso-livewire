@@ -22,6 +22,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin123')
         ]);
 
+        Posts::create([
+            'title' => 'Post #1',
+            'content' => 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.',
+        ]);
+
+        Posts::create([
+            'title' => 'Post #2',
+            'content' => 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.',
+        ]);
+
         Posts::factory(100)->create();
     }
 }
