@@ -21,5 +21,14 @@ class CreatePost extends Component
             'title' => $this->title,
             'content' => $this->content
         ]);
+
+        //Limpiando campos y cerrando el modal
+        $this->reset(['open_modal', 'title', 'content']);
+
+        //Emitiendo el evento render para comunicación de componentes 
+        $this->emitTo('show-posts', 'render');
+
+        //Emitiendo el evento para el script de la alerta con sweet alert 2
+        $this->emit('alert', 'El post se creó con exitó');
     }
 }

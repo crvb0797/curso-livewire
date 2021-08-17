@@ -19,6 +19,7 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -45,6 +46,18 @@
     @stack('modals')
 
     @livewireScripts
+
+    {{-- Script de escucha para el evento de alert con sweet alert 2 --}}
+    <script>
+        Livewire.on('alert', function(message) {
+            //Código que quiero que se ejecute, en este caso la alerta
+            Swal.fire(
+                'Buen trabajo!',
+                message,
+                'success'
+            )
+        });
+    </script>
 </body>
 
 </html>
