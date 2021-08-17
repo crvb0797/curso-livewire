@@ -9,6 +9,16 @@ class CreatePost extends Component
 {
     public $open_modal = false;
     public $title, $content;
+    //Validaciones
+    protected $rules = [
+        'title' => 'required|max:10',
+        'content' => 'required',
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
 
     public function render()
     {
@@ -17,6 +27,8 @@ class CreatePost extends Component
 
     public function save()
     {
+        $this->validate();
+
         Posts::create([
             'title' => $this->title,
             'content' => $this->content

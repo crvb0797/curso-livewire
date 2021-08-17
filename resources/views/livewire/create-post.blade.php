@@ -10,13 +10,16 @@
         <x-slot name="content">
             <div class="mb-4">
                 <x-jet-label value="Título del post" />
-                <x-jet-input type="text" placeholder="Nos encanta el agua..." class="w-full" wire:model.defer="title" />
+                <x-jet-input name="title" type="text" placeholder="Nos encanta el agua..." class="w-full"
+                    wire:model="title" />
+                <x-jet-input-error for="title" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value="Contenido del post" />
-                <textarea rows="6" class="form w-full" wire:model.defer="content"
+                <textarea name="content" rows="6" class="form w-full" wire:model="content"
                     placeholder="Vivimos de ella..."></textarea>
+                <x-jet-input-error for="content" />
             </div>
         </x-slot>
         <x-slot name="footer">
