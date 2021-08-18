@@ -2,6 +2,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import './load.css';
+
 .container{
     @apply max-w-7xl mx-auto px-4;
 }
