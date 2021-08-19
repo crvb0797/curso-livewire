@@ -21,6 +21,30 @@
                     placeholder="Vivimos de ella..."></textarea>
                 <x-jet-input-error for="content" />
             </div>
+
+
+            @if ($image) {{-- tenemos algo guardado en la propiedad image ? --}}
+                <img class="mb-4" src="{{ $image->temporaryUrl() }}" alt="Imagen de vista previa">
+            @endif
+
+            {{-- Mostrando la vista previa de la imagen utilizando la ruta temporal --}}
+            <div wire:loading.flex wire:target="save, image" class="m-4 flex justify-center items-center py-4 lg:px-4">
+                <div style="color: #63c5ab" class="la-ball-spin-clockwise">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <input type="file" name="image" wire:model="image" id="{{ $identificador }}">
+                <x-jet-input-error for="image" />
+            </div>
         </x-slot>
         <x-slot name="footer">
             <x-jet-secondary-button wire:click="$set('open_modal', false)">
@@ -28,27 +52,9 @@
             </x-jet-secondary-button>
 
             <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" class="disabled:opacity-25"
-                wire:target="save">
+                wire:target="save, image">
                 Crear post
             </x-jet-danger-button>
-            {{-- <div wire:loading wire:target="save" style="color: #9787ea" class="la-ball-8bits la-2x m-4">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div> --}}
 
         </x-slot>
     </x-jet-dialog-modal>

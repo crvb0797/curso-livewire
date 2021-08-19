@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Posts;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,21 +17,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        Storage::deleteDirectory('posts');
+        Storage::makeDirectory('posts');
+
         User::create([
             'name' => 'Carlos Villatoro',
             'email' => 'c@admin.com',
             'password' => bcrypt('admin123')
         ]);
 
-        Posts::create([
-            'title' => 'Post #1',
-            'content' => 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.',
-        ]);
-
-        Posts::create([
-            'title' => 'Post #2',
-            'content' => 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.',
-        ]);
 
         Posts::factory(100)->create();
     }
