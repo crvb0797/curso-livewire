@@ -4,13 +4,29 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Posts;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class ShowPosts extends Component
 {
+    use WithFileUploads;
+
     /* public $text, $content; */
-    public $search;
+    public $search, $post, $image, $identificador;
     public $sort = 'id', $direction = 'desc';
     protected $listeners = ['render'];
+    public $open_edit = false;
+
+    protected $rules = [
+        'post.title' => 'required',
+        'post.content' => 'required',
+    ];
+
+    public function mount()
+    {
+        $this->identificador = rand();
+        $this->post = new Posts();
+    }
 
     public function render()
     {
@@ -38,5 +54,34 @@ class ShowPosts extends Component
 
 
         $this->sort = $sort;
+    }
+
+    public function edit(Posts $post)
+    {
+        $this->post = $post;
+        $this->open_edit = true;
+    }
+
+    public function update()
+    {
+        $this->validate();
+
+        //Eliminado la imagen
+        if ($this->image) {
+            Storage::delete([$this->post->image]);
+
+            //Subiendo la imagen actualizada
+            $this->post->image = $this->image->store('posts');
+        }
+
+
+
+        $this->post->save();
+        //Limpiando campos y cerrando el modal
+        $this->reset(['open_edit', 'image']);
+        //Reseteando la imagen
+        $this->identificador = rand();
+        //Emitiendo el evento para el script de la alerta con sweet alert 2
+        $this->emit('alert', 'El post se actualizó con exitó');
     }
 }
