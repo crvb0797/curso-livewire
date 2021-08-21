@@ -16,9 +16,13 @@
                 <x-jet-label value="Contenido del post" />
                 <textarea wire:model="post.content" name="content" rows="6" class="form w-full"></textarea>
             </div>
-
+            @if ($image) {{-- tenemos algo guardado en la propiedad image ? --}}
+                <img class="mb-4" src="{{ $image->temporaryUrl() }}" alt="Imagen de vista previa">
+            @else
+                <img src="{{ Storage::url($post->image) }}" alt="">
+            @endif
             {{-- Mostrando la vista previa de la imagen utilizando la ruta temporal --}}
-            <div wire:loading.flex wire:target="save" class="m-4 flex justify-center items-center py-4 lg:px-4">
+            <div wire:loading.flex wire:target="save, image" class="m-4 flex justify-center items-center py-4 lg:px-4">
                 <div style="color: #63c5ab" class="la-ball-spin-clockwise">
                     <div></div>
                     <div></div>
@@ -30,7 +34,13 @@
                     <div></div>
                 </div>
             </div>
+            <div class="mb-4">
+                <input type="file" name="image" wire:model="image" id="{{ $identificador }}">
+                <x-jet-input-error for="image" />
+            </div>
+
         </x-slot>
+
         <x-slot name="footer">
             <x-jet-secondary-button wire:click="$set('open', false)">
                 Cancelar
