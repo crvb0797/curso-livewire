@@ -199,21 +199,22 @@
         <script>
             Livewire.on('destroy', postId => {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: '¿Estas seguro que desea realizar la acción?',
+                    text: "¡No podrás revertir esto!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Si, eliminar <i class="fas fa-skull"></i>',
+                    cancelButtonText: 'Cancelar <i class="fas fa-times-circle"></i>'
                 }).then((result) => {
                     if (result.isConfirmed) {
 
                         Livewire.emitTo('show-posts', 'delete', postId)
 
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
+                            'Eliminado!',
+                            'Tu post ha sido eliminado.',
                             'success'
                         )
                     }
