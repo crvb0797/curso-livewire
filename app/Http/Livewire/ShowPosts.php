@@ -79,6 +79,11 @@ class ShowPosts extends Component
         $this->open_edit = true;
     }
 
+    public function destroy($id)
+    {
+        Posts::destroy($id);
+    }
+
     public function update()
     {
         $this->validate();

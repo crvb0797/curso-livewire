@@ -97,10 +97,14 @@
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">{{ $item->content }}</div>
                                 </td>
-                                <td class="px-6 py-4 text-sm font-medium">
+                                <td class="px-6 py-4 text-sm font-medium flex justify-around space-x-2">
                                     {{-- @livewire('edit-post', ['post' => $post], key($post->id)) --}}
                                     <a class="btn btn-green" wire:click="edit({{ $item }})">
                                         <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-red" wire:click="destroy({{ $item->id }})">
+                                        <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
