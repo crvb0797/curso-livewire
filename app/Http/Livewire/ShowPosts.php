@@ -3,13 +3,18 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+//El modelo de posts
 use App\Models\Posts;
+//Para imagenes
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+//Para la paginación dinamica
+use Livewire\WithPagination;
 
 class ShowPosts extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     /* public $text, $content; */
     public $search, $post, $image, $identificador;
@@ -28,12 +33,18 @@ class ShowPosts extends Component
         $this->post = new Posts();
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $posts = Posts::where('title', 'LIKE', '%' . $this->search . '%')
             ->orWhere('content', 'LIKE', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
-            ->get();
+            ->paginate(10);
+
         return view('livewire.show-posts', compact('posts'));
     }
 
