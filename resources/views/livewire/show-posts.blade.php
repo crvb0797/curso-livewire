@@ -1,4 +1,5 @@
 <div wire:init="loadPosts">
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -23,6 +24,19 @@
                 <x-jet-input class="flex-1 mx-4" placeholder="Search for title or content...🔎" type="text"
                     wire:model="search" />
                 @livewire('create-post')
+            </div>
+
+            <div wire:loading.flex wire:target="loadPosts" class="m-4 flex justify-center items-center py-4 lg:px-4">
+                <div style="color: #63c5ab" class="la-ball-spin-clockwise">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
 
             @if (count($posts))
@@ -123,7 +137,7 @@
                 @endif
 
             @else
-                <div class="px-6 py-4">
+                <div wire:loading.remove wire:target="loadPosts" class="px-6 py-4">
                     <p>Ningun resultado para la busqueda...🤔</p>
                 </div>
             @endif
