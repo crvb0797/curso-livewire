@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     @livewireStyles
+    @stack('css')
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -46,6 +47,7 @@
     @stack('modals')
 
     @livewireScripts
+    @stack('js')
 
     {{-- Script de escucha para el evento de alert con sweet alert 2 --}}
     <script>

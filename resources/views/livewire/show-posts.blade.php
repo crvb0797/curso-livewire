@@ -120,7 +120,7 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <a class="btn btn-red" wire:click="destroy({{ $item->id }})">
+                                    <a class="btn btn-red" wire:click="$emit('destroy', {{ $item->id }})">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </td>
@@ -194,4 +194,32 @@
             </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script>
+            Livewire.on('destroy', postId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Livewire.emitTo('show-posts', 'delete', postId)
+
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        </script>
+    @endpush
+
 </div>

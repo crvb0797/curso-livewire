@@ -19,7 +19,7 @@ class ShowPosts extends Component
     /* public $text, $content; */
     public $search = '', $post, $image, $identificador, $cant = '10';
     public $sort = 'id', $direction = 'desc';
-    protected $listeners = ['render'];
+    protected $listeners = ['render', 'delete'];
     protected  $queryString = [
         'cant' => ['except' => '10'],
         'sort' => ['except' => 'id'],
@@ -92,11 +92,6 @@ class ShowPosts extends Component
         $this->open_edit = true;
     }
 
-    public function destroy($id)
-    {
-        Posts::destroy($id);
-    }
-
     public function update()
     {
         $this->validate();
@@ -118,5 +113,10 @@ class ShowPosts extends Component
         $this->identificador = rand();
         //Emitiendo el evento para el script de la alerta con sweet alert 2
         $this->emit('alert', 'El post se actualizó con exitó');
+    }
+
+    public function delete(Posts $post)
+    {
+        $post->delete();
     }
 }
