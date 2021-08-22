@@ -9,7 +9,18 @@
 
             <div class="px-6 py-4 flex items-center">
                 {{-- <input type="text" wire:model="search"> --}}
-                <x-jet-input class="flex-1 mr-4" placeholder="Search for title or content...🔎" type="text"
+                <div class="flex items-center">
+                    <span>Mostrar</span>
+                    <select wire:model="cant" name="paginate_input" class="mx-2 form">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span class="">Entradas</span>
+                </div>
+                <x-jet-input class="flex-1 mx-4" placeholder="Search for title or content...🔎" type="text"
                     wire:model="search" />
                 @livewire('create-post')
             </div>

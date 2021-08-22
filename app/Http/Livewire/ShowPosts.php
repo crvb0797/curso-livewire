@@ -17,9 +17,15 @@ class ShowPosts extends Component
     use WithPagination;
 
     /* public $text, $content; */
-    public $search, $post, $image, $identificador;
+    public $search = '', $post, $image, $identificador, $cant = '10';
     public $sort = 'id', $direction = 'desc';
     protected $listeners = ['render'];
+    protected  $queryString = [
+        'cant' => ['except' => '10'],
+        'sort' => ['except' => 'id'],
+        'direction' => ['except' => 'desc'],
+        'search' => ['except' => '']
+    ];
     public $open_edit = false;
 
     protected $rules = [
@@ -43,7 +49,7 @@ class ShowPosts extends Component
         $posts = Posts::where('title', 'LIKE', '%' . $this->search . '%')
             ->orWhere('content', 'LIKE', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
-            ->paginate(10);
+            ->paginate($this->cant);
 
         return view('livewire.show-posts', compact('posts'));
     }
