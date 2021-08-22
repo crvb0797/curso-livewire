@@ -1,5 +1,5 @@
 
-![Laravel logo](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
+## 💻 Aplicación para administración de posts
 
 En esta aplicación se aprendio a utilizar LiveWire para crear una administrador de post totalmente dinámico, con el cual se puede crear, editar y eliminar los post junto con imagenes sin tener que recargar la página.
 ## 👨‍🏫 Autor
