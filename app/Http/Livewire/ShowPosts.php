@@ -27,6 +27,8 @@ class ShowPosts extends Component
         'search' => ['except' => '']
     ];
     public $open_edit = false;
+    //Aplazamiento de carga
+    public $readyToLoad = false;
 
     protected $rules = [
         'post.title' => 'required',
@@ -46,12 +48,23 @@ class ShowPosts extends Component
 
     public function render()
     {
-        $posts = Posts::where('title', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('content', 'LIKE', '%' . $this->search . '%')
-            ->orderBy($this->sort, $this->direction)
-            ->paginate($this->cant);
+        if ($this->readyToLoad) {
+            $posts = Posts::where('title', 'LIKE', '%' . $this->search . '%')
+                ->orWhere('content', 'LIKE', '%' . $this->search . '%')
+                ->orderBy($this->sort, $this->direction)
+                ->paginate($this->cant);
+        } else {
+            $posts = [];
+        }
+
 
         return view('livewire.show-posts', compact('posts'));
+    }
+
+    //Aplazamiento de carga 
+    public function loadPosts()
+    {
+        $this->readyToLoad = true;
     }
 
     public function order($sort)

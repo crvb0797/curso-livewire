@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadPosts">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -25,7 +25,7 @@
                 @livewire('create-post')
             </div>
 
-            @if ($posts->count())
+            @if (count($posts))
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -97,6 +97,9 @@
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">{{ $item->content }}</div>
                                 </td>
+                                <td class="px-6 py-4">
+                                    <img src="{{ 'storage/' . $item->image }}" width="320px" alt="Prueba de imagenes">
+                                </td>
                                 <td class="px-6 py-4 text-sm font-medium flex justify-around space-x-2">
                                     {{-- @livewire('edit-post', ['post' => $post], key($post->id)) --}}
                                     <a class="btn btn-green" wire:click="edit({{ $item }})">
@@ -112,17 +115,20 @@
                         <!-- More people... -->
                     </tbody>
                 </table>
+
+                @if ($posts->hasPages())
+                    <div class="px-6 py-3">
+                        {{ $posts->links() }}
+                    </div>
+                @endif
+
             @else
                 <div class="px-6 py-4">
                     <p>Ningun resultado para la busqueda...🤔</p>
                 </div>
             @endif
 
-            @if ($posts->hasPages())
-                <div class="px-6 py-3">
-                    {{ $posts->links() }}
-                </div>
-            @endif
+
 
         </x-table>
     </div>
